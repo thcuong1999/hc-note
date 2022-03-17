@@ -1,0 +1,36 @@
+- Passport is authentication middleware for Node.js
+- file config/db.js: module.exports = { connect } => file js khác require có 2 cách:
+	+ const db = require("./config/db"); => db giờ là object do config/db.js export object
+	+ destructuring nó ra: const { connect } = require("./config/db");
+- 1 file .js không có export. ví dụ cuối file chỉ có: mongoose.model("Users", UsersSchema); xong trong 1 file .js khác: require('./models/Users');
+	=> kiểu tách code ra, xong r require trực tiếp, require trực tiếp do file này ko có export cái j cả.
+=============================
+const jwt = require('jsonwebtoken')
+const auth = {
+  required: jwt({
+    secret: "secret",
+    userProperty: "payload",
+    getToken: getTokenFromHeaders,
+  }),
+  optional: jwt({
+    secret: "secret",
+    userProperty: "payload",
+    getToken: getTokenFromHeaders,
+    credentialsRequired: false,
+  }),
+};
+	=> jwt này là express-jwt, là 1 function. Giống: auth = { prop1: (param1) => {...} },tuy nhiên jwt là hàm viết sẵn nên chỉ truyền tham số vào
+tham số nó là 1 object {} khi gọi chỉ cần auth.required / auth.optional. Còn hàm tự viết thì auth.prop1(tham_số) , value của property là 1 function. Object -> { property: value }
+
+
+=============================
+
+
+# syntax=docker/dockerfile:1
+FROM node:12-alpine
+RUN apk add --no-cache python2 g++ make
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+EXPOSE 3000

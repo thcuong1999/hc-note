@@ -1,0 +1,29 @@
+If you need space inside the block, between the edge of the element and the content use padding, on the other hand, if you need space between the blocks to use margin.
+
+For example, if you have twodivs and inside each <div> you are having an image<img>
+
+to separate the divs use margin
+to give some space between the image and the div, you can use padding.
+
+
+Use margin to separate the block from things outside it
+Use padding to move the contents away from the edges of the block.
+
+******** Use padding when:
+- You don’t want your content to touch the edges of the container. 
+Example: you have a bunch of <p> elements inside a div and you don’t 
+want the text inside <p> elements to touch the div’s border
+- You want the background of the element to be displayed in the produced gap.
+- You want to increase the size of the element. Example: if you want to increase 
+the size of a button
+
+
+******** Use margin when:
+- You want to have some space around an element, or you don’t want the element 
+to touch other elements around it
+- You want to center an element. If you give “margin: auto” to an element with
+ fixed width, it will center that element horizontally (and vertically too if 
+using flexbox)
+
+
+

@@ -1,0 +1,18 @@
+** PORTAINER: quản lý docker apps
+	
+	- Deploy Portainer
+	  $ docker volume create portainer_data
+	  $ docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
+	- Init Docker Swarm
+	  $ docker swarm init --advertise-addr my_ip_address
+	- Deploy docker stack
+	  $ curl -L https://downloads.portainer.io/portainer-agent-stack.yml -o portainer-agent-stack.yml
+	  $ docker stack deploy --compose-file=portainer-agent-stack.yml portainer
+
+- docker stack => list of running containers
+
+** DOCKER SWARM
+	- Khi một container bị build lỗi docker swarm có thể rollback bản build trước 
+	
+*** Docker is in volume in use, but there aren't any Docker containers
+	=> $ docker-compose down --volumes

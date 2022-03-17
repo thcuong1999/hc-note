@@ -1,0 +1,38 @@
+Phụ thuộc hàm mạnh: 1 đầu nhiều, 1 đầu 1
+	-> Khóa chính bảng đầu 1 đc kéo về làm khóa ngoại của bảng đầu nhiều
+Phụ thuộc hàm yếu: 1 đầu 1, 1 đầu 0..1
+	-> Khóa chính bảng đầu 1 kéo về làm khóa ngoại đầu bảng 0..1
+Lớp phụ thuộc
+	-> ng tắc 1: many - many: kéo khóa chính của 2 bảng về làm khóa chính riêng nó
+
+Mẹo thiết kế: trong đoạn mô tả, tìm danh từ -> class, nếu có động từ giữa 2 danh từ -> có
+liên kết
+
+Quan hệ nhiều - nhiều khi chuyển logical model thì tên quan hệ sẽ sinh ra 1 bảng riêng kéo
+khóa chính của 2 bảng làm khóa chỉnh bản thân
+
+- Xây dựng phương thức lớp
+	+ hàm xây dựng SAN_PHAM();
+	+ hàm xay dựng có tham số SAN_PHAM(m: char, ml: char);
+	+ hàm hủy: ~SAN_PHAM();
+	+ có bao nhiêu thuộc tính (lẫn khóa ngoại) -> bấy nhiêu get
+	+ set => trừ khóa ngoại
+	+ tìm theo tất cả thuộc tính của table => return 1 đối tượng or 1 mảng đối tượng,
+đổi với thuộc tính là khóa ngoại -> tìm theo chính tên thuộc tính đó + tìm theo lớp mà có
+khóa ngoại này là khóa chính, tức tham số truyền vào là đối tượng lớp sở hữu khóa 9 này
+	+ tìm theo lớp liên kết trực tiếp -> tìm theo mã của lớp lk trực tiếp + tìm theo đối
+tượng của lớp lk trực tiếp
+	+ tìm thông tin lớp liên kết trực tiếp thông qua đối tượng đang xét: VD: tìm nhà sản
+xuất thông quan 1 sản phẩm cụ thể của lớp SAN_PHAM => return: NHA_SAN_XUAT, tìm loại sản 
+phẩm xuất thông  quan 1 sản phẩm cụ thể => return: LOAI_SAN_PHAM thì lớp NHA_SAN_XUAT, 
+LOAI_SAN_PHAM là lớp liên kết trực tiếp với lớp SAN_PHAM
+	+ tìm theo suy luận của min, max, sum, avg ,... trong sql. VD: 
+tim_san_pham_co_gia_ban_cao_nhat():SAN_PHAM()
+	+ hiển thị 1 đối tượng class, hiện thị 1 mảng object class, hiển thị theo khóa ngoại
+	+ in ""
+
+Phương thức lớp là phương thức duyệt trên nhiều đối tượng, từ 2 trờ lên (mẹo: phương thức 
+mà có áp dụng vòng lặp)
+
+
+

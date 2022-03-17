@@ -1,0 +1,14 @@
+** What is docker daemon
+	- Docker client provides cli only, it is just an http api wrapper, Like aws cli.
+	- Docker daemon is the brain behind the whole operation, like aws itself. When you use docker run command to start up a container, 
+	 	your docker client will translate that command into http API call, sends it to docker daemon, Docker daemon then evaluates 
+		the request, talks to underlying os and provisions your container.
+	- Please note docker cli can connect to remote docker daemon, and your can configure your docker daemon to use tcp IP.
+
+
+
+
+
+
+
+

@@ -1,0 +1,142 @@
+- Dù instance của image (container) là isolate => cũng phải mỗi container / nhiều container phải chạy trên port khác nhau
+- container’s filesystem: filesytem trong container cũng giống linux: /app, /bin, /dev, ...
+- trong docker thuật ngữ container còn dc gọi là services
+
+1. Getting started
+	$ docker run -d -p 80:80 docker/getting-started
+
+	=>	-d - run the container in detached mode (in the background)
+		-p 80:80 - map port 80 of the host to port 80 in the container
+		docker/getting-started - the image to use
+
+2. Sample application
+- Dockerfile:
+	# syntax=docker/dockerfile:1
+	FROM node:12-alpine
+	RUN apk add --no-cache python2 g++ make
+	WORKDIR /app
+	COPY . .
+	RUN yarn install --production
+	CMD ["node", "src/index.js"]
+	EXPOSE 3000
+
+	$ docker build -t IMAGE-NAME .
+
+	$ docker run -dp 3000:3000 IMAGE-NAME 
+
+3. Update the application
+	$ docker build -t IMAGE-NAME .
+	
+	$ docker ps
+	$ docker stop <the-container-id> (1)
+	$ docker rm <the-container-id>	 (2)
+	=> (1) và (2) = docker rm -f <the-container-id>
+	$ docker run -dp 3000:3000 IMAGE-NAME
+
+4. Share the application
+	$ docker login -u YOUR-USER-NAME
+	$ docker tag IMAGE-NAME IMAGE-NEW-NAME
+	$ docker push IMAGE-NEW-NAME
+- Docker web ui interface: https://labs.play-with-docker.com/
+
+5. Persist the DB (Docker Volume)
+- By default, the todo app stores its data in a SQLite Database at /etc/todos/todo.db in the container’s filesystem
+
+	$ docker exec <container-id> [cat | ls | ...] FILE-SYSTEM-PATH
+	
+	$ docker run -it IMAGE-NAME [cat | ls | ...] [FILE-SYSTEM-PATH]
+	=> -it is short for --interactive + --tty. When you docker run with this command it takes you straight inside the container (no cli interface)
+	=> -d: detach (running in background)	
+
+	$ docker volume create VOLUME-NAME
+	$ docker rm -f <id>
+	$ docker run -dp 3000:3000 -v VOLUME-NAME:/etc/todos IMAGE-NAME
+	=> mount volume VOLUME-NAME to /etc/todos
+
+	$ docker volume inspect VOLUME-NAME
+
+6. Use bind mounts
+
+	$ docker run -dp 3000:3000 \
+     	 	-w /app -v "$(pwd):/app" \
+     		node:12-alpine \
+     		sh -c "yarn install && yarn run dev"
+ 
+	=>	-dp 3000:3000 - same as before. Run in detached (background) mode and create a port mapping
+		-w /app - sets the “working directory” or the current directory that the command will run from
+		-v "$(pwd):/app" - bind mount the current directory from the Docker host into the container's /app directory
+		node:12-alpine - the image to use. Note that this is the base image for our app from the Dockerfile
+		sh -c "yarn install && yarn run dev" - the command. We’re starting a shell using sh (alpine doesn’t have bash) 
+		and running yarn install to install all dependencies and then running yarn run dev. If we look in the package.json, 
+		we’ll see that the dev script is starting nodemon.
+
+	$ docker logs -f <container-id>
+
+7. Multi container apps
+	
+	- create a network
+	$ docker network create NETWORK-NAME
+	- Start a MySQL container and attach it to the network:
+	$ docker run -d \
+     		--network NETWORK-NAME --network-alias mysql \
+     		-v todo-mysql-data:/var/lib/mysql \
+     		-e MYSQL_ROOT_PASSWORD=secret \
+     		-e MYSQL_DATABASE=todos \
+     		mysql:5.7
+	
+	=> todo-mysql-data: volume name (automatically created), which is mounting at /var/lib/mysql (which is where MySQL stores its data)
+	- To confirm we have the database up and running, connect to the database and verify it connects:
+	$  docker exec -it <mysql-container-id> mysql -u root -p
+	- Connect to MySQL
+	- Start a new container using the nicolaka/netshoot image. Make sure to connect it to the same network:
+	$ docker run -it --network NETWORK-NAME nicolaka/netshoot
+	$ dig mysql
+	- Note: for MySQL versions 8.0 and higher, make sure to include the following commands in mysql:
+	mysql> ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'secret';
+ 	mysql> flush privileges;
+	$ docker run -dp 3000:3000 \
+   		-w /app -v "$(pwd):/app" \
+   		--network todo-app \
+   		-e MYSQL_HOST=mysql \
+   		-e MYSQL_USER=root \
+   		-e MYSQL_PASSWORD=secret \
+   		-e MYSQL_DB=todos \
+   		node:12-alpine \
+   		sh -c "yarn install && yarn run dev"
+	$ docker logs <container-id>
+	$ docker exec -it <mysql-container-id> mysql -p todos => todos: databse name
+	$ select * from todo_items;
+	
+8. Use Docker Compose
+	
+	$  docker-compose up -d
+	=> -d: run everything in the background
+
+	$ docker-compose logs -f
+
+	$ docker-compose down [--volumes]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

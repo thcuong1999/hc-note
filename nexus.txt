@@ -1,0 +1,13 @@
+*** NEXUS is repository manager, it supports docker registry, nvm package,...
+*** NEXUS image on DockerHub: sonatype/nexus3
+*** NEXUS port: 8081
+
+*** A Docker registry is a storage and distribution system for Docker images
+
+	$ docker volume create --name nexus-data
+	$ docker run -d -p 8081:8081 --name nexus -v nexus-data:/nexus-data sonatype/nexus3
+	=> go to container cli -> password store in mounted folder in container: /nexus-data/admin.password
+	
+	
+https://www.coachdevops.com/2020/08/how-to-configure-nexus-3-as-docker.html
+https://www.coachdevops.com/2020/02/how-to-upload-docker-images-into-nexus.html

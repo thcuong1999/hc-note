@@ -1,0 +1,116 @@
+Docker host: windows 10, ubuntu # docker container
+
+- Docker storage: là một cơ chế cho phép lưu trữ các data của Container vào Docker Host bằng cách mount một folder từ Docker Container 
+	vào Docker Host.
+
+- Có 3 kiểu mount của Docker Storage đó là:
+	+ Volumes: Mount-point sẽ nằm ở /var/lib/docker/volumes/ của Docker Host và được quản lý bằng Docker (ko thuộc container nào cả, 
+	  được Docker tạo ra để chia sẽ giữa các container)
+	+ bind mounts: Mount-point có thể nằm ở bất kỳ đâu Docker Host không được quản lý bởi Docker (tức ko thể quản lý bằng lệnh Docker).
+
+- Sử dụng Volume khi nào ?
+	+ Khi chia sẻ dữ liệu giữa nhiều container đang chạy.
+	+ Lưu dữ liệu tới một server remote hoặc cloud.
+	+ Khi cần backup, restore hoặc migrate dữ liệu từ Docker Host này sang Docker Host khác.
+
+- Volume thường là sự lựa chọn tốt hơn là sử dụng wriable layer của Container *** WRITEABLE LAYER CONTAINER
+
+- Sử dụng bind mounts khi nào ?
+	+ Khi chia sẻ file cấu hình từ docker host với container.
+	+ Chia sẻ thư mục source code hoặc môt trường từ docker host với container
+	+ Khi cấu trúc filesystem của docker host là rõ ràng và phù hợp với các yêu cầu của bind mount
+
+- có 2 cách run container:
+	+ docker run -dp port:port IMAGE-NAME
+	+ docker run -itd IMAGE-NAME
+
+- bind mounts: một file hoặc một folder trong docker host được mount vào trong container
+- Sử dụng bind mounts khi nào ?
+	+ Khi chia sẻ file cấu hình từ docker host với container.
+	+ Chia sẻ thư mục source code hoặc môt trường từ docker host với container
+	+ Khi cấu trúc filesystem của docker host là rõ ràng và phù hợp với các yêu cầu của bind mounts
+
+- Khi stop container chạy lại -> thư mục volume mount / bind mounts trên docker container bị remove, volumes trên docker host thì remain: /var/lib/container/volumes/
+
+- mount explain:
+	$ docker run -itd --name my_contanier -v /home/thcuong/temp:/opt/ getting-started
+	=> thưc mục /home/thcuong/temp trên Docker host có j thì trong opt trên docker container có nấy
+
+- *** lệnh mount volume vào container với bind mounts tương tự nhau:
+	+ mout volume:
+	  $ docker run -itd -v my-volume:/opt/mount_point/ centos
+	+ bind mounts:
+	  $ docker run -itd -v /opt/docker_host_folder/:/opt/ centos
+	=> tuy nhiên bind mounts, file hoặc folder trên docker host cần mount phải là absolute path
+
+- *** mở cli trên container:
+	$ docker exec -it container-name sh
+
+- copy file from hostmachine into running container and vice versa, 2 methods: 
+	1. Using the Docker cp Command
+	  $ docker cp file/path/ container-name:/target/directory/location
+	2. Mouting a host directory
+	  $ docker run -itd --name <container-name> -v /path/to/directory/in/host:/path/to/directory/in/container/ <image name>
+	  sau đó vào container cli: $ cp /container/mount/source /container/path/to/dest
+
+- copy file from hostmachine into running container and vice versa, 2 methods: 
+	1. Using the Docker cp Command
+	  $ docker cp <containerId>:/file/path/within/container /host/path/target
+	2. Mouting a host directory
+	  $ docker run -itd --name <container-name> -v /path/to/directory/in/host:/path/to/directory/in/container/ <image name>
+	  sau đó vào container cli: $ cp /container/mount/source /container/path/to/dest
+
+- copy image from one host to another host
+	+ compress to .tar file
+	  $ docker save -o <path for generated tar file> <image name>
+	+ using rsync tool to copy file over the internet
+	  $ rsync -avz /home/sammy/your_image.tar username@remote_server_ip_address:destination_directory
+	 	Hoặc: $ scp file_name remote_username@10.10.0.2:/remote/directory
+	+ The received host load the Docker image:
+	  $ sudo docker load -i your_image.tar 
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

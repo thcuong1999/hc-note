@@ -1,0 +1,78 @@
+Subnet mask:
+	 NetId =>  1
+	 HostId =>  0
+
+Broadcast
+	 NetId => giu nguyen
+	 HostId => 1
+
+prefix length. .../24, .../17 ,..
+
+IPV4 (class phan theo quy uoc rfc)
+	- class A (1 - 126): 0NNNNNNN HOST HOST HOST, ko phai 127 do 127 la dia chi dat biet -> loai no ra
+	- class B (128 - 191): 10NNNNNN NET HOST HOST
+	- class C (192 - 223): 110NNNNN NET NET HOST
+	- class D (224 - 239): multicast address (gui cho 1 nhom cac may' # broadcast gui cho tat ca cac may)
+	- class E (240 - 255): reserved for future use
+
+Địa chỉ loopback có IP mặc định (127.0.0.1) hữu ích để kiểm tra các chương trình trên máy tính của bạn mà không cần gửi thông tin qua internet.
+An address that sends outgoing signals back to the same computer for testing. In a TCP/IP network, the loopback IP address is 127.0. 0.1, and pinging this address will always return a reply unless the firewall prevents it.
+127.0.0.0-127.255.255.255
+
+private address:
+	class A: 10.0.0.0
+	class B: 172.16.0.0 - 172.31.0.0
+	ckass C: 192.168.0.0 - 192.168.255.0
+
+unicast: 1 node -> 1 node
+broadcast: 1 node -> all node
+multicast: 1 node -> 1 nhom node
+
+thanh phan mang:
+	hosts, phuong tien ket noi (cap, song vo tuyen), thiet bi lien mang (router, switch)
+
+===========================================
+
+mo hinh OSI, layer n cc dich vu cho layer n + 1. moi layer se co 1 protocol de trao doi vs nhau
+
+transport layer: truyen du lieu end - to - end
+network layer: truyen du lieu host - host
+	+ tim duong di
+data link: truyen du lieu link - link
+physical: truyen du lieu phisical - phisical
+
+PDU - protocol data unit cho moi tang:
+	- transport: segment
+	- network: packet
+	- data link: frame
+	- physical: bit
+
+- client - server >< peer - to - peer
+
+=============================================
+application layer: 
+	- DHCP
+transport layer:
+	- TCP: huong noi ket, tin cay
+	- UDP: khong huong noi ket, ko tin cay
+
+================================
+KAOS (centos 7) / packer -> tool deploy
+packer -> dung script
+custom terminal => viet = nodejs - vorbal npm
+===================
+license => genarate key
+===================
+portal => implement lai bluecat server => portal co client/server rieng
+
+DB => 2 api
+
+keyword: kea dhcp, power dns
+
+
+
+
+
+
+
+

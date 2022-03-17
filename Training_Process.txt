@@ -1,0 +1,66 @@
+Things to learn for working PCN Project:
+
+- Basic
+-- Frontend
+--- Angular Framework
+---- TypeScript
+---- Angular Observables
+---- RxJs
+---- Create a feature component
+---- Add service
+---- Add navigation
+---- Get data from a server
+---- Build an Angular Project
+-- Backend
+--- NodeJs platform
+---- Promise and Async await
+---- ExpressJS
+---- Middleware
+---- Make HTTP Requests with Axios
+---- Authentication with PassportJS and JWT
+---- Gulp (https://css-tricks.com/gulp-for-beginners/)
+-- Database
+--- Mongo and Mongoose
+
+------------------------------------------------------------------
+
+- Advance
+-- Code Linting
+-- ZoneJS (https://github.com/angular/zone.js/)
+-- Webpack (https://webpack.js.org/guides/getting-started/)
+-- Webpack Loaders (https://webpack.js.org/loaders/)
+-- Webpack Dev Server (https://webpack.js.org/configuration/dev-server/)
+-- Docker
+-- RabitMQ
+-- Kafka
+-- Packer
+-- Jenkins pipeline
+-- Nexus repository service
+-- Porainer
+-- Replicated set in MongoDB
+
+------------------------------------------------------------------
+
+- Basic knowledge needed to work for PCN
+-- Zone
+-- DNS
+-- CIDR (https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+-- CIDR to IP Range (https://www.ipaddressguide.com/cidr)
+-- Network
+-- Subnet (https://searchnetworking.techtarget.com/definition/subnet)
+-- Static IP
+-- DHCP Range (Scope)
+-- DHCP Reservation (Manual DHCP Object/Reserved DHCP) (http://www.tech-faq.com/dhcp-reservation.html)
+-- Static IP vs DHCP Reservation (https://community.spiceworks.com/topic/300224-static-vs-dhcp-reservations)
+-- netmask Library (https://www.npmjs.com/package/netmask)
+
+------------------------------------------------------------------
+
+Exercise:
+- Create a project which craws/get data about Covid cases from all over the world → show data on a chart and let user query by different params
+-- Building a server RESTFull API using expressJS.
+-- Having middleware to handleError
+-- Having authentication with PassportJS or JWT
+-- Building a simple UI Angular to show data on chart and uer can query by country name and date
+-- Using MongoDB to store data and having setup replicated set if can
+-- Implementing a dockerfile and deploy this project to running on Docker

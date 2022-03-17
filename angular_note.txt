@@ -1,0 +1,15 @@
+- <ng-container> <=> <></> bên react -> doesn't render to dom. We want to apply multiple structural directives without introducing any extra 
+	element in our DOM.
+
+- <ng-content> <=> <>{ props.children }</> bên react: placeholder
+- multiple <ng-content>. EX:
+	<div>
+		<ng-content select="h1"></ng-content>
+	</div>
+	<div>
+		<ng-content select="div"></ng-content>
+	</div>
+	...
+- <ng-template>
+
+ssl vpn fortie client ubuntu

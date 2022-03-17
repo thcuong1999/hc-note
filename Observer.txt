@@ -1,0 +1,5 @@
+- Observable sẽ phát ra một sự kiện hoặc dữ liệu nào đó, còn một Observer sẽ tiếp nhận sự kiện/dữ liệu đó bằng cách đăng ký lắng 
+nghe Observable
+- RxJS (Reactive Extensions for JavaScript) is a library for reactive programming using observables that makes it easier to compose 
+asynchronous or callback-based code
+- 

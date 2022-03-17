@@ -1,0 +1,29 @@
+Hero section which is generally found underneath of the nav bar, very important pieces of type
+go, this is where you're trying to grab the person's attention and you're trying to answer a 
+question that they might had in their head which is what is this site about. You have to choose
+your headline, you might have a sub headline of text, a call to action like a real strong call
+action and may be some accompanying graphic => typical for creating landing page
+
+WHERE TO PUT HEADLINE ? => Usually at the third column
+HEADLINE SIZE & COLOR? => Large size & Black => Large size people can see it 
+and color black make more high contract
+
+WE Have to use primary color for action button underneath headline
+
+SubHeadline => should be styled the same as headline, but small size, we can use primary color
+to color it
+
+Get it habbit of reinforcing your visual hierarchy by placing emphasis on in priority onto your
+elements -> The way we reinforcing visual hierarchy is through UI design fundamentals such as
+topography, scale, font-weight, alignment, whitespace between word, uppercase, lowercase,...
+
+
+Bright colors look closer when they're on the dark background while dark colors look closer
+when they're on the bright background.
+
+Visual hierarchy basically a way of prioritizing the different elements that exist on our UI
+design and we emphasizing them through visual aesthetics in a sense so this could include
+categories such as spacing like margin/padding, color and constrast it includes a 
+different typography it can include animation and this is all stuff
+
+WEB_ONE_GATE

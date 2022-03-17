@@ -1,0 +1,52 @@
+Hi mấy em trai em gái, mượn lý do tự học là quan trọng, a có một số thứ gần gũi chia sẻ mn tự research thêm để chuẩn bị kiến thức cho nghề developer của mình bây giờ và sắp tới nhe.
+
+- Client - Server Model (https://en.wikipedia.org/wiki/Client%E2%80%93server_model)
+- REST (https://en.wikipedia.org/wiki/Representational_state_transfer)
+
+- NodeJS (https://medium.freecodecamp.org/what-exactly-is-node-js-ae36e97449f5)
+- ExpressJS (https://www.tutorialspoint.com/expressjs/)
+- Promise (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+- NodeJS File System (https://www.tutorialspoint.com/nodejs/nodejs_file_system.htm)
+- Authentication with PassportJS (https://medium.freecodecamp.org/learn-how-to-handle-authentication-with-node-using-passport-js-4a56ed18e81e)
+- Make HTTP Requests with Axios (https://github.com/axios/axios)
+- NodeJs Sending Emails (https://www.w3schools.com/nodejs/nodejs_email.asp)
+
+- Mongo & Mongoose (https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/mongoose)
+
+- TypeScript (https://www.typescriptlang.org/docs/home.html)
+- Angular (nên theo nguyên bài này) (https://angular.io/tutorial)
+- Angular Observables (https://angular.io/guide/observables)
+- Webpack (https://webpack.js.org/guides/getting-started/)
+- Webpack Loaders (https://webpack.js.org/loaders/)
+- Webpack Dev Server (https://webpack.js.org/configuration/dev-server/)
+- RxJS (http://reactivex.io/rxjs/manual/tutorial.html)
+- Date & Time with MomentJS (https://momentjs.com/)
+
+- Gulp (https://css-tricks.com/gulp-for-beginners/)
+- Markdown (https://github.com/markedjs/marked)
+
+Nâng cao:
+
+- Docker (https://docs.docker.com/get-started/)
+- SSL (https://www.sitepoint.com/how-to-use-ssltls-with-node-js/)
+- Code Linting
+- ZoneJS (https://github.com/a ngular/zone.js/)
+
+Chuyên sâu:
+
+- CIDR (https://hostingviet.vn/cidr-la-gi-khai-niem-classless-inter-domain-routing)
+- CIDR to IP Range (https://www.ipaddressguide.com/cidr) - trang web này dùng tính địa chỉ IP address
+- Subnet (https://searchnetworking.techtarget.com/definition/subnet)
+- Static IP, dynamic IP (DHCP)
+- DHCP Range (Scope)
+- DHCP Reservation (Manual DHCP Object/Reserved DHCP) (http://www.tech-faq.com/dhcp-reservation.html)
+- Static IP vs DHCP Reservation (https://community.spiceworks.com/topic/300224-static-vs-dhcp-reservations)
+- netmask Library (https://www.npmjs.com/package/netmask)
+
+.............
+
+
+mode: development, production
+webpack build vs angular cli build => uu, nhuoc
+
+

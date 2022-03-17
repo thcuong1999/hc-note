@@ -1,0 +1,144 @@
+Subnet mask:
+	 NetId =>  1
+	 HostId =>  0
+
+Broadcast
+	 NetId => giu nguyen
+	 HostId => 1
+
+prefix length. .../24, .../17 ,..
+
+IPV4 (class phan theo quy uoc rfc)
+	- class A (1 - 126): 0NNNNNNN HOST HOST HOST, ko phai 127 do 127 la dia chi dat biet -> loai no ra => 1.0.0.1 - 126.0.0.0
+	- class B (128 - 191): 10NNNNNN NET HOST HOST => 128.1.0.0 - 191.254.0.0
+	- class C (192 - 223): 110NNNNN NET NET HOST => 192.0.1.0 - 223.255.254.0
+	- class D (224 - 239): multicast address (gui cho 1 nhom cac may' # broadcast gui cho tat ca cac may)
+	- class E (240 - 255): reserved for future use
+
+Địa chỉ loopback có IP mặc định (127.0.0.1) hữu ích để kiểm tra các chương trình trên máy tính của bạn mà không cần gửi thông tin qua internet.
+An address that sends outgoing signals back to the same computer for testing. In a TCP/IP network, the loopback IP address is 127.0. 0.1, and pinging this address will always return a reply unless the firewall prevents it.
+127.0.0.0-127.255.255.255
+
+private address:
+	class A: 10.0.0.0
+	class B: 172.16.0.0 - 172.31.0.0
+	ckass C: 192.168.0.0 - 192.168.255.0
+
+unicast: 1 node -> 1 node
+broadcast: 1 node -> all node
+multicast: 1 node -> 1 nhom node
+
+thanh phan mang:
+	hosts, phuong tien ket noi (cap, song vo tuyen), thiet bi lien mang (router, switch)
+
+===========================================
+
+mo hinh OSI, layer n cc dich vu cho layer n + 1. moi layer se co 1 protocol de trao doi vs nhau
+
+transport layer: truyen du lieu end - to - end
+network layer: truyen du lieu host - host
+	+ tim duong di
+data link: truyen du lieu link - link
+physical: truyen du lieu phisical - phisical
+
+PDU - protocol data unit cho moi tang:
+	- transport: segment
+	- network: packet
+	- data link: frame
+	- physical: bit
+
+- client - server >< peer - to - peer
+
+=============================================
+application layer: 
+	- DHCP
+transport layer:
+	- TCP: huong noi ket, tin cay
+	- UDP: khong huong noi ket, ko tin cay
+
+
+========================================
+
+CIDR: Classless Inter-Domain Routing. A CIDR IP address looks like a normal 
+	IP address except that it ends with a slash followed by a number, called the IP network prefix. EX: 192.168.10.0/24
+ -  256	  |	128	64	32	16	8	4	2	1	
+<=> 2^8	  |	2^7	2^6	2^5	2^4	2^3	2^2	2^1	2^0
+<=> 8		7	6	5	4	3	2	1	0
+- EX: 2^8 = 256 : bit tại vị trí số 8 bật lên 1
+- VLSM (Variable Length Subnet Masking) # FLSM: phân chia không gian địa chỉ IP thành các subnet có kích thước khác nhau.
+
+====================================
+** DHCP
+Gia su R2 la DHCP server
+DHCP hoạt động theo nguyên tắt sau:
++ Các clients là PC1, PC2 ban đầu chưa có địa chỉ IP, nó sẽ sinh địa chỉ broadcast yêu cầu địa chỉ IP từ DHCP Server R2. 
+	Giả sử PC1 broadcast lên R1 thì bị chặn tại R1 (giao diện F0/0), do đó ta sẽ có câu lệnh IP helper chỉ vào vào DHCP Server,
+	lệnh IP helper đặt tại giao diện F0/0
++ Sau khi đặt lệnh IP helper, broadcast sẽ đẩy lên DHCP Server R2.
++ R2 sẽ lấy 1 IP trong danh sách địa chỉ IP của nó truyền xuống cho PC1
+ 
+- 1 máy tính khi tham gia vào mạng cần đặt 4 tham số: IP, subnet mask, gateway, DNS 
+
+- tạo pool(hay dãy địa chỉ) cho nhánh mạng 192.168.11.0/24 tren R2(DHCP server)
+	R2(config)#ip dhcp pool R1Fa1 / Fa1: giao dien huong' vao PC
+	R2(dhcp-config)#network 192.168.11.0 255.255.255.0 -> pool: 1 -> 254 (trừ địa chỉ subnet và địa chỉ broadcast)
+	R2(dhcp-config)#dns-server 192.168.11.5
+	R2(dhcp-config)#default-router 192.168.11.1
+- Tren R1:
+	R1(config)#interface fa0/0 // interface huong' ve` PC
+	R1(config-if)#ip helper-address 10.1.1.2 // DHCP Relay
+	=> Network services such as DHCP rely on Layer 2 broadcasts to function. When the devices providing these services exist on 
+		a different subnet than the clients, they cannot receive the broadcast packets. *** Because the DHCP server and the DHCP
+		clients are not on the same subnet, configure R1 to forward DHCP broadcasts to R2, which is the DHCP server, using the
+ 		ip helper-address interface configuration command. 
+
+	=> Như nói ở trên, trên giao diện R1, chỉ lên địa chỉ của DHCP Server R2: 10.1.1.2. R2 có tới 3 địa chỉ, ta nên sử dụng địa chỉ nào gần nhất.
+	   Nếu bên ngoài ta lấy 1 DHCP thật bên ngoài thì thay 10.1.1.2 = địa chỉ của DHCP thật đó.
+
+=================================================
+
+- PAT (cách gọi khác là NAT overload) chỉ dùng 01 địa chỉ IPv4 public để cho phép số lượng lớn các máy bên trong mạng liên
+	lạc với các máy bên ngoài mạng
+       * PAT do dùng port nên chỉ cần 1 địa chỉ IPv4 public có thể dùng cho all máy trong mạng, dia_chi_public:port <=> dia_chi_private:port 
+- NAT: Mỗi máy bên trong mạng 1 địa chỉ IPV4 => khác PAT
+       * NAT dịch địa chỉ 1:1, tức 1 private address = 1 public address
+	=> dia_chi_public_1 <=> dia_chi_private_1, dia_chi_public_2 <=> dia_chi_private_2, ...
+- NAT tĩnh: NAT cho Server
+- NAT động: NAT cho PC
+
+
+- subnet 192.168.10.0/24 sẽ được cấp dãy pool địa chỉ từ 1->254, nhưng trong nhánh mạng mình luôn luôn có những địa chỉ được cấp tĩnh,  gateway là địa chỉ tĩnh,
+ hoặc ta sẽ có 1 số các Server ta sẽ cấp tĩnh
+
+====================================================
+
+- DHCP range(scope) <=> pool address / dãy địa chỉ
+- DHCP range(scope) properties: 
+	+ Network ID (The network ID / dịa chỉ subnet for the range of IP addresses)
+	+ Subnet mask
+	+ Network IP address range (The range of IP addresses that are available to clients)
+	+ Lease duration
+	+ Router
+	+ Scope name
+	+ Exclusion range
+
+======================================================
+
+DHCP Reservation
+- A DHCP reservation (địa chỉ dành riêng cho thiết bị: Printer, Server) is a permanent IP address assignment. It is a specific IP address within a DHCP scope 
+that is permanently reserved for leased use to a specific DHCP client.
+- Users can configure a DHCP reservation in their DHCP server when they need to reserve a permanent IP address assignment. Reservations are used for DHCP 
+enabled devices like print and file servers or other application servers that always have the fixed IP address on the network.
+
+=====================================
+
+STATIC IP VS DHCP RESERVATION IP
+- static ip: 
+	+  set = tay, => ko thay đổi vì ip assign vào nó phải unique
+- dhcp
+	+ cấu hình tự động (gồm: subnet mask, default gateway, and DNS server(s) are sent along with the IP address)
+- dhcp reservation
+	+ đảm bảo cùng một địa chỉ IP được cấp trên một thiết bị. In this way, reservations behave very much like Static IPs => tuy nhiên dhcp cấu hình
+tự động # static ip
+	
+

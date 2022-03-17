@@ -1,0 +1,80 @@
+how is webpack (or module bundler) different
+	-  code splitting
+	- loaders (css, sass, jsx, etc)
+	  -> is something which do everything before final compilation being done
+	  -> by default webpack can only work with native javscript
+	  -> loaders come into place: it used to transform other resource into js
+so we can actually transform css into js file and then just require/import it right in that script. ex: import styles from 'styles.css'
+	  -> EX: css-loader: allow import css into js file (import styles from 'styles.css')
+	  -> EX: style-loader: allow take css property and inject them in index file
+	  -> another example would be with react library react uses jsx which is js syntax
+extension and webpack has a jsx loader to work with reacts
+	  -> another example sass: we can require sass file right into js file
+	- clever parsing (require('./templates/' + name + '.jade'))
+	- plugins
+
+// =======================
+
+1. webpack reads the entry point and analyzes its dependencies, its dependencies of dependencies
+and so on
+2. webpack bundles the entry point which contains all dependencies into a single file: bundle.js
+-> and we have to include it into index.html inside <script> tag. It'll takes all modules that we have and bundle
+all those modules into 1 file .bundle.js
+
+
+//=====================
+
+- babel-loader: requirement, allow to write modern js like arrow function,... make sure files or app loads up nicely in the older browser that
+doesn't these modern techniques
+
+- we have to index bundle.js into index.html. 2 ways: manually, using plugin. Common plugin is html injection plugin of js: HtmlWebpackPlugin
+- HtmlWebpackPlugin: it's gonna generate index.html for us, also go to output property of webpack, inject fileName bundle.js into that index.html file
+
+- webpack-dev-server giúp chúng ta tạo một web server đơn giản tại địa chỉ http://localhost:8080 
+và tự động reload lại mỗi khi có thay đổi file
+- script: "webpack serve" -> keep things into the cache util we put thing into build or production. It doesn't output immediately to bundle.js file
+
+// =====================
+
+- Entry: The entry point is simply a module or a JavatScript file (defaults to ./src/index.js) which webpack uses to start bundling. Webpack looks for the 
+	import statements in this module and builds the dependency graph of all the dependencies. If you don't use the default entry point i.e ./src/index.js,
+	you need to specify it in the configuration file. Please note that you can have more than one entry point in your project.
+- Output: Using the output point, you tell webpack the name and path of the file(s) where to produce the final bundle or set of bundles. By default 
+	it's ./dist/main.js for the main bundle and you can specify your custom values in the configuration file.
+- Loaders: Webpack makes use of loaders to know how to transform and bundle the other types of assets and files, such as CSS, SCSS, images or TypeScript code, 
+	other than JavaScript and JSON which are supported by default. Then we cound require or import into .js file
+- Plugins: Webpack can be extended with plugins which are used for adding features that cant' be imlemented using loaders.
+- Mode: Webpack enables deveopers to specify different configuration options for development and production by using changing the mode parameter which can 
+	take either the development, production or none values. By default the mode is set to production. For more information, check out the official docs.
+- EX:
+
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+module.exports = {
+  entry: "./app/index.js",
+  module: {
+    rules: [
+      {
+        test: /\.svg$/,
+        use: "svg-inline-loader",
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(js)$/,
+        use: "babel-loader",
+      },
+    ],
+  },
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+  },
+  plugins: [new HtmlWebpackPlugin()],
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
+};
+
+===============================
+

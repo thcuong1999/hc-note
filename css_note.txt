@@ -1,0 +1,55 @@
+Block level element by default occupy the entire width of its parent element.
+
+Say there are 2 block level 2 element (<aside> and <section>), and we want these to 
+float side by side. We set float: left; It's not gonna work, because <aside> and <section>
+are block element, so it's width by default 100%. We need to reset its width
+
+Relative doesn't remove its element from normal document flow (but float does).
+
+- block element can contain other block element(s) or inline element(s).
+	=> Every block element always start on new line because every block element
+we declare always take the full width by default
+- inline element can only contain inline element(s), it can not contain block element
+	=> Every inline element always start on the same line, and it's only takes 
+up as much width as its content
+	=> We can change inline behavior to block by set display: block/inline-block 
+to inline element
+
+===================================================
+
+** display: block; => occupy the entire width of its parent element.
+** display: inline; => ocuppy as much width as its content. You can’t set the width or height.
+** display: inline-block; => It’s formatted JUST LIKE THE INLINE ELEMENT ( that is ocuppy 
+as much width as its content) , where it doesn’t start on a new line. BUT, you can set 
+width and height values.
+
+=====================================================
+
+<input type="text">
+<input type="text">
+
+input {
+  width: 100%;
+  display: inline-block;
+}
+
+=> display: inline-block; => doesn't work, because width is set to 100%. We need to
+change the width to see the effect
+
+.wrapper {
+  display: inline-block;
+  width: 500px;
+  height: 200px;
+  border: 1px solid red;
+  margin: 0 auto;
+}
+
+=> margin: 0 auto; => doesn't work, because wrapper doesn't have margin (because it's 
+displayed into "inline" element that is ocuppy as much width as its content) add "block" 
+mean wrapper can set width, height
+
+
+
+WHEN SET WIDTH AND HEIGTH, THAT WIDTH AND HEIGHT WILL APPLY TO CONTENT AREA OF THAT ELEMENT
+
+
