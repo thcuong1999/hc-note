@@ -13,3 +13,49 @@
 - <ng-template>
 
 ssl vpn fortie client ubuntu
+
+1. Pass data from parent to child with input binding: @Input()
+
+=====================================
+
+2. Intercept input property changes with ngOnChanges()
+	+ ngOnChanges() -> call before ngOnInit() if component has bound inputs (@Input()) and whenever one or more data-bound input properties (@Input()) change. Note that if your component has no inputs (@Input()) or you use it without providing any inputs (@Input()), the framework will not call ngOnChanges().
+		ngOnChanges(changes: SimpleChanges) {...} -> changes is and SimpleChanges object: { input_property_1: { currentValue: any, previousValue: any, isFirstChange: boolean } }
+	+ ngOnInit() 
+	
+=====================================
+
+3. Pass data from child to parent: @Output()
+	- The child component exposes an EventEmitter property with which it emits events when something happens
+	- The child's EventEmitter property is an output property (@Output())
+	- EX: @Output() voted = new EventEmitter<boolean>();
+	
+=====================================
+	
+4. Parent interacts with child using local variable
+	A parent component cannot use data binding to read child properties or invoke child methods. Do both by creating a template reference variable for the child element and then reference that variable within the parent template
+	=> Place a local variable, #local_var_name, on child tag in parent representing the child component. That gives you a reference to the child component and the ability to access any of its properties or methods from within the parent template.
+	- EX:
+	<button type="button" (click)="timer.stop()">Stop</button>
+    	<div class="seconds">{{timer.seconds}}</div>
+    	<app-countdown-timer #timer></app-countdown-timer>
+    	=> #timer is local var
+    	
+ =====================================
+ 
+ 5. Parent calls an @ViewChild(), use with ngAfterViewInit()
+	- inject the child component into the parent as a ViewChild.
+ 	- @ViewChild(ChildComponentName)
+ 	- The ngAfterViewInit() lifecycle hook is an important wrinkle. The timer component isn't available until after Angular displays the parent view
+ 
+=====================================
+
+6. Parent and children communicate using a service
+
+
+=====================================
+
+- Access DOM: using ViewChild / elementRef
+- template reference variable. EX:
+	<input type="text" value="code Guru" #text>
+	-> #text is template reference variable / TemplateRef
